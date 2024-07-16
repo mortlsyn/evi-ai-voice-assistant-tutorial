@@ -13,6 +13,7 @@
   "dependencies": {
     "@humeai/voice": "^0.1.10",
     "@humeai/voice-react": "^0.1.10",
+    "@react-oauth/google": "^0.12.1",
     "@types/node": "20.2.4",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
@@ -20,6 +21,9 @@
     "concurrently": "^8.0.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
+    "framer-motion": "^11.3.4",
+    "google-auth-library": "^9.11.0",
+    "googleapis": "^140.0.1",
     "hume": "^0.7.2",
     "next": "^14.2.5",
     "postcss": "8.4.23",

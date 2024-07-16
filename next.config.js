@@ -1,30 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  rewrites: async () => {
-    return [
-      {
-        source: "/api/:path*",
-        destination:
-          process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/:path*"
-            : "/api/",
-      },
-      {
-        source: "/docs",
-        destination:
-          process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/docs"
-            : "/api/docs",
-      },
-      {
-        source: "/openapi.json",
-        destination:
-          process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/openapi.json"
-            : "/api/openapi.json",
-      },
-    ];
+  reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_HUME_VOICE_HOSTNAME: process.env.NEXT_PUBLIC_HUME_VOICE_HOSTNAME,
+    NEXT_PUBLIC_HUME_VOICE_JEN_CONFIG_ID: process.env.NEXT_PUBLIC_HUME_VOICE_JEN_CONFIG_ID,
+    GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

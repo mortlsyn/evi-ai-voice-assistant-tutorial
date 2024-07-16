@@ -1,15 +1,22 @@
-import VoiceAssistant from "./VoiceAssistant";
+import { fetchAccessToken } from '@humeai/voice';
+import dynamic from 'next/dynamic';
+import JenAssistant from './components/JenAssistant';
 
-export default function EVIAssistantPage() {
-  const apiKey = process.env.NEXT_PUBLIC_HUME_API_KEY as string;
+const NoSSR = dynamic(() => Promise.resolve((props: { children: React.ReactNode }) => <>{props.children}</>), { ssr: false });
 
-  if (!apiKey) {
-    throw new Error("Missing API Key");
-  }
+export default async function Home() {
+  const accessToken = await fetchAccessToken({
+    apiKey: process.env.HUME_API_KEY || '',
+    secretKey: process.env.HUME_SECRET_KEY || '',
+  });
 
   return (
-    <div className="min-h-screen p-8" style={{ background: 'radial-gradient(circle at 20% 100%, #e9defa, #fbfcdb, #fad0c4, #fad0c4)' }}>
-      <VoiceAssistant apiKey={apiKey} />
-    </div>
+    <NoSSR>
+      {accessToken ? (
+        <JenAssistant accessToken={accessToken} />
+      ) : (
+        <div>Missing API Key</div>
+      )}
+    </NoSSR>
   );
 }
