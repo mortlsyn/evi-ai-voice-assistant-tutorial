@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useVoice } from '@humeai/voice-react';
 
 type ControlsProps = {
-  isConnected: boolean;
-  setIsConnected: (isConnected: boolean) => void;
-  onStartConversation: () => void;
-};
+    isConnected: boolean;
+    setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
+    onStartConversation: () => void;
+  };
 
 export default function Controls({ isConnected, setIsConnected, onStartConversation }: ControlsProps) {
   const [isLoading, setIsLoading] = useState(false);

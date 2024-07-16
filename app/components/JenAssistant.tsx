@@ -1,29 +1,28 @@
 'use client';
-
-import { useState, useEffect, useCallback } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { VoiceProvider, useVoice } from '@humeai/voice-react';
 import Controls from './Controls';
 import Messages from './Messages';
+import GoogleSignIn from './SigninGoogle';
 
-function VoiceComponent({ onConnectionChange }: { onConnectionChange: (isConnected: boolean) => void }) {
-  const { status, messages: voiceMessages } = useVoice();
+function VoiceComponent({ isConnected, setIsConnected }: { isConnected: boolean; setIsConnected: React.Dispatch<React.SetStateAction<boolean>> }) {
+  const { status, messages } = useVoice();
   
-  useEffect(() => {
-    onConnectionChange(status.value === 'connected');
-  }, [status.value, onConnectionChange]);
+  React.useEffect(() => {
+    setIsConnected(status.value === 'connected');
+  }, [status.value, setIsConnected]);
 
-  return (
-    <Messages messages={voiceMessages} />
-  );
+  return <Messages messages={messages} />;
 }
 
 export default function JenAssistant({ accessToken }: { accessToken: string }) {
   const [isConnected, setIsConnected] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const handleStartConversation = () => {
-    setShowPrompt(true);
-    setTimeout(() => setShowPrompt(false), 5000); // Hide prompt after 5 seconds
+    // This function can be used to handle any logic needed when starting a conversation
+    console.log("Starting conversation...");
   };
 
   return (
@@ -31,28 +30,25 @@ export default function JenAssistant({ accessToken }: { accessToken: string }) {
       <div className="flex justify-center">
         <h1 className="text-5xl font-cursive mb-6 text-center">Personal Scheduling Assistant</h1>
       </div>
-      <VoiceProvider
-        auth={{ type: 'accessToken', value: accessToken }}
-        hostname={process.env.NEXT_PUBLIC_HUME_VOICE_HOSTNAME || 'api.hume.ai'}
-        messageHistoryLimit={10}
-        configId={process.env.NEXT_PUBLIC_HUME_VOICE_JEN_CONFIG_ID}
-      >
-        <div className="flex-grow">
-          {isConnected && <VoiceComponent onConnectionChange={setIsConnected} />}
-          {showPrompt && (
-            <div className="text-center text-gray-500 font-regular mt-4">
-              Please start speaking...
-            </div>
-          )}
-        </div>
-        <div className="flex justify-center mt-6">
-          <Controls 
-            isConnected={isConnected} 
-            setIsConnected={setIsConnected} 
-            onStartConversation={handleStartConversation}
-          />
-        </div>
-      </VoiceProvider>
+      {!isSignedIn ? (
+        <GoogleSignIn onSignIn={() => setIsSignedIn(true)} />
+      ) : (
+        <VoiceProvider
+          auth={{ type: 'accessToken', value: accessToken }}
+          hostname={process.env.NEXT_PUBLIC_HUME_VOICE_HOSTNAME || 'api.hume.ai'}
+          messageHistoryLimit={10}
+          configId={process.env.NEXT_PUBLIC_HUME_VOICE_JEN_CONFIG_ID}
+        >
+          <VoiceComponent isConnected={isConnected} setIsConnected={setIsConnected} />
+          <div className="flex justify-center mt-6">
+            <Controls 
+              isConnected={isConnected} 
+              setIsConnected={setIsConnected} 
+              onStartConversation={handleStartConversation}
+            />
+          </div>
+        </VoiceProvider>
+      )}
     </div>
   );
 }
