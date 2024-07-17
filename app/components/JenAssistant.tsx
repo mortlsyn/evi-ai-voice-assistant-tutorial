@@ -21,7 +21,6 @@ export default function JenAssistant({ accessToken }: { accessToken: string }) {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   const handleStartConversation = () => {
-    // This function can be used to handle any logic needed when starting a conversation
     console.log("Starting conversation...");
   };
 
@@ -36,8 +35,8 @@ export default function JenAssistant({ accessToken }: { accessToken: string }) {
         <VoiceProvider
           auth={{ type: 'accessToken', value: accessToken }}
           hostname={process.env.NEXT_PUBLIC_HUME_VOICE_HOSTNAME || 'api.hume.ai'}
-          messageHistoryLimit={10}
-          configId={process.env.NEXT_PUBLIC_HUME_VOICE_JEN_CONFIG_ID}
+          messageHistoryLimit={30}
+          configId={process.env.CONFIG_ID}
         >
           <VoiceComponent isConnected={isConnected} setIsConnected={setIsConnected} />
           <div className="flex justify-center mt-6">

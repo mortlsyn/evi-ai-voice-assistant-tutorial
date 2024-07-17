@@ -39,7 +39,7 @@ export default function Controls({ isConnected, setIsConnected, onStartConversat
           isConnected ? 'bg-red-300 hover:bg-red-400' : 'bg-orange-300 hover:bg-orange-400'
         } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
-        {isLoading ? 'Processing...' : (isConnected ? 'End Session' : 'Talk to Jen')}
+        {isLoading ? 'Loading...' : (isConnected ? 'End Session' : 'Talk to Jen')}
       </button>
     </div>
   );
