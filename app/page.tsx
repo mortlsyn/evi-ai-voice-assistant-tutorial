@@ -1,8 +1,7 @@
 import { fetchAccessToken } from '@humeai/voice';
 import dynamic from 'next/dynamic';
-import JenAssistant from './components/JenAssistant';
 
-const NoSSR = dynamic(() => Promise.resolve((props: { children: React.ReactNode }) => <>{props.children}</>), { ssr: false });
+const JenAssistantNoSSR = dynamic(() => import('./components/JenAssistant'), { ssr: false });
 
 export default async function Home() {
   const accessToken = await fetchAccessToken({
@@ -11,12 +10,12 @@ export default async function Home() {
   });
 
   return (
-    <NoSSR>
+    <>
       {accessToken ? (
-        <JenAssistant accessToken={accessToken} />
+        <JenAssistantNoSSR accessToken={accessToken} />
       ) : (
         <div>Missing API Key</div>
       )}
-    </NoSSR>
+    </>
   );
 }
