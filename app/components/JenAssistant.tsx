@@ -36,7 +36,7 @@ export default function JenAssistant({ accessToken }: { accessToken: string }) {
           auth={{ type: 'accessToken', value: accessToken }}
           hostname={process.env.NEXT_PUBLIC_HUME_VOICE_HOSTNAME || 'api.hume.ai'}
           messageHistoryLimit={30}
-          configId={process.env.CONFIG_ID}
+          configId={process.env.NEXT_PUBLIC_CONFIG_ID}
         >
           <VoiceComponent isConnected={isConnected} setIsConnected={setIsConnected} />
           <div className="flex justify-center mt-6">

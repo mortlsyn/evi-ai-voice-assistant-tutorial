@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Dancing+Script&family=Magesta&family=Raleway&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -19,6 +19,7 @@
 }
 
 body {
+  font-family: 'Inter', sans-serif;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -33,5 +34,5 @@ body {
 }
 
 .font-basic {
-  font-family: 'Raleway', basic;
+  font-family: 'Raleway', sans-serif;
 }
