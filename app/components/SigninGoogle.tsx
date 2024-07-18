@@ -35,7 +35,8 @@ export default function GoogleSignIn({ onSignIn }: { onSignIn: () => void }) {
 
   const handleSignIn = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
-    auth2.signIn().then(() => {
+    auth2.signIn().then((data) => {
+      console.log(data)
       onSignIn();
     });
   };

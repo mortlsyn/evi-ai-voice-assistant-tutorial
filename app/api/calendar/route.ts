@@ -8,6 +8,9 @@ const oauth2Client = new OAuth2Client(
   process.env.GOOGLE_REDIRECT_URI
 );
 
+console.log('Redirect URI:', process.env.GOOGLE_REDIRECT_URI);
+
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
