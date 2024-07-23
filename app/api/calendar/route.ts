@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
+
 const oauth2Client = new OAuth2Client(
   process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
@@ -39,7 +40,10 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+/*export async function POST(request: Request) {
   // Implement event creation logic here
   // Similar to GET, but use calendar.events.insert
 }
+*/
+
+

@@ -28,6 +28,14 @@ export default function GoogleSignIn({ onSignIn }: { onSignIn: () => void }) {
       });
     };
 
+
+
+    // need to grab token from the client side 
+    // give token to backend with next.js? 
+    // ask dylan for the screenshots. 
+    // 
+    //learn abt the client and server side what that means 
+
     return () => {
       document.body.removeChild(script);
     };
